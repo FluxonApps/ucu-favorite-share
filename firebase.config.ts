@@ -1,14 +1,14 @@
-import { initializeApp } from 'firebase/app';
 import { getFirestore } from '@firebase/firestore';
+import { initializeApp } from 'firebase/app';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCY0q7Vi2DilfchzORuridC7FQgr0INJeA',
-  authDomain: 'crypto-guru-ed9c7.firebaseapp.com',
-  projectId: 'crypto-guru-ed9c7',
-  storageBucket: 'crypto-guru-ed9c7.appspot.com',
-  messagingSenderId: '943943580469',
-  appId: '1:943943580469:web:2473399219db48c1f26a7c',
+  apiKey: 'AIzaSyBa6X0RE-lqiq6XZD-NQjMDYWlvVfD6LAY',
+  authDomain: 'ucu-favorite-share.firebaseapp.com',
+  projectId: 'ucu-favorite-share',
+  storageBucket: 'ucu-favorite-share.appspot.com',
+  messagingSenderId: '1020771733812',
+  appId: '1:1020771733812:web:59899a2bfff303406f9561',
 };
 
 // Initialize Firebase
