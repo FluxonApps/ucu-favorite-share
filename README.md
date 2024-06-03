@@ -1,4 +1,4 @@
-# Fluxon x UCU Summer School project template `🤓` :)
+# Fluxon x UCU Summer School project template `🤓`
 
 Oh boy... Welcome to the project repository, hope you are excited! This README file gives you some context on how to start your work on the project, guides you through the local development setup, and provides some useful materials to help you learn stuff we're using here.
 
