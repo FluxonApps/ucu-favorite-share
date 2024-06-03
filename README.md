@@ -21,14 +21,14 @@ This bulleted list will help you set up your machine for local development.
 1. Install Git (if haven't yet or not available): https://github.com/git-guides/install-git
 1. Install Node.js 20: follow instructions on https://nodejs.org/en/download/package-manager
 1. Install VSCode or your preferred text editor / IDE: https://code.visualstudio.com/Download
-1. Configure your editor to run ESLint on file save. This will ensure the code looks great for everyone the same way 💅
-   - if using VSCode, paste the following snippet into .vscode/settings.json file (create if missing): `{"typescript.tsdk": "node_modules/typescript/lib","editor.codeActionsOnSave": {"source.fixAll.eslint": "explicit"},"[json]": {"editor.defaultFormatter": "vscode.json-language-features","editor.formatOnSave": true}}`
-   - if using any other IDE, start questioning your life decisions. Or just ask mentors for help 😇
 1. Clone this Git repository:
    - create a dedicated folder for cool projects like this one (or use your preferred one): `cd ~; mkdir Projects; cd Projects`.
    - copy the Git repository URL: on the GitHub page of this repository, click the green `<> Code` button > `📋` button to the right of the repository url.
    - in the cool projects folder, execute the `git clone <copied repository url>` command, pasting the repo url. This will copy the project files from GitHub to your machine.
    - navigate to the cloned repository by `cd <repository name>`.
+1. Configure your editor to run ESLint on file save. This will ensure the code looks great for everyone the same way 💅
+   - if using VSCode, paste the following snippet into .vscode/settings.json file (create if missing): `{"typescript.tsdk": "node_modules/typescript/lib","editor.codeActionsOnSave": {"source.fixAll.eslint": "explicit"},"[json]": {"editor.defaultFormatter": "vscode.json-language-features","editor.formatOnSave": true}}`
+   - if using any other IDE, start questioning your life decisions. Or just ask mentors for help 😇
 1. Install JavaScript dependencies using NPM: `npm install`
 1. Start the app dev server with `npm run dev`
 1. Go to http://localhost:5173/ to see this wonderful project live
