@@ -10,6 +10,7 @@ interface User {
   name: string;
   mark: number;
 }
+
 export function FirebaseDemo() {
   const [newName, setNewName] = useState('');
   const [newMark, setNewMark] = useState(0);
@@ -19,7 +20,8 @@ export function FirebaseDemo() {
   const [users, usersLoading, usersError] = useCollection(query(usersCollectionRef) as CollectionReference<User>);
 
   const createUser = async () => {
-    await addDoc(usersCollectionRef, { name: newName, mark: Number(newMark) });
+    const userData = { name: newName, mark: Number(newMark), someArray: [] }; // додаємо пустий масив
+    await addDoc(usersCollectionRef, userData);
   };
 
   const updateUser = async (id: string, mark: number) => {
@@ -87,3 +89,4 @@ export function FirebaseDemo() {
 }
 
 export default FirebaseDemo;
+
