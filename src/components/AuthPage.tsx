@@ -26,11 +26,13 @@ const AuthPage = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUserName] = useState('')
 
   const switchAuthMode = () => {
     setShowSignIn((prevState) => !prevState);
     setEmail('');
     setPassword('');
+    setUserName('')
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,10 @@ const AuthPage = () => {
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
   };
 
   const signIn = async () => {
@@ -64,7 +70,7 @@ const AuthPage = () => {
 
       // Save user to database.
       const userDocRef = doc(db, 'users', res.user.uid);
-      await setDoc(userDocRef, { email });
+      await setDoc(userDocRef, { email, username, followings: [], answers: [] });
 
       toast({ status: 'success', description: 'Successfully signed up!' });
     } catch (e) {
@@ -107,6 +113,7 @@ const AuthPage = () => {
               minLength={6}
               required
             />
+            <Input placeholder="Username" onChange={handleUserNameChange} value={username} required />
             <Button type="submit" colorScheme="blue" isDisabled={loading} isLoading={loading}>
               Submit
             </Button>
