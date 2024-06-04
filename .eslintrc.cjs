@@ -36,7 +36,7 @@ module.exports = {
     'prettier/prettier': 'warn',
 
     /// Vanilla
-    'object-shorthand': ['warn', 'always'],
+    'object-shorthand': ['off', 'always'],
     'padding-line-between-statements': [
       'warn',
       { blankLine: 'always', prev: 'block-like', next: '*' },
@@ -45,7 +45,7 @@ module.exports = {
 
     // TypeScript
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-floating-promises': ['warn', { ignoreVoid: true, ignoreIIFE: true }],
+    '@typescript-eslint/no-floating-promises': ['off', { ignoreVoid: true, ignoreIIFE: true }],
     '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: { arguments: false, attributes: false } }],
     '@typescript-eslint/no-unnecessary-condition': ['warn', { allowConstantLoopConditions: true }],
     '@typescript-eslint/no-duplicate-enum-values': 'error',
