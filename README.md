@@ -29,8 +29,9 @@ This bulleted list will help you set up your machine for local development.
 1. Configure your editor to run ESLint on file save. This will ensure the code looks great for everyone the same way 💅
    - if using VSCode, paste the following snippet into .vscode/settings.json file (create if missing): `{"typescript.tsdk": "node_modules/typescript/lib","editor.codeActionsOnSave": {"source.fixAll.eslint": "explicit"},"[json]": {"editor.defaultFormatter": "vscode.json-language-features","editor.formatOnSave": true}}`
    - if using any other IDE, start questioning your life decisions. Or just ask mentors for help 😇
-1. Install JavaScript dependencies using NPM: `npm install`
-1. Start the app dev server with `npm run dev`
+1. Install Yarn package manager: `npm i -g yarn`
+1. Install JavaScript dependencies using NPM: `yarn install`
+1. Start the app dev server with: `yarn dev`
 1. Go to http://localhost:5173/ to see this wonderful project live
 1. Make changes to files within the src/ folder to see them reflected on the page
 1. You should be all set! Now you can start contributing to the project! 🤘
