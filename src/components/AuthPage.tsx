@@ -70,7 +70,7 @@ const AuthPage = () => {
 
       // Save user to database.
       const userDocRef = doc(db, 'users', res.user.uid);
-      await setDoc(userDocRef, { email, username, followings: [], answers: [] });
+      await setDoc(userDocRef, { email, username, followers: [], answers: [] });
 
       toast({ status: 'success', description: 'Successfully signed up!' });
     } catch (e) {
