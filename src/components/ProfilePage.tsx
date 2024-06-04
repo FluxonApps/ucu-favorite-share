@@ -7,9 +7,8 @@ const ProfilePage = () => {
     return (
         <div className="app">
             <Header />
-            <SearchBar />
-            <div className="profile-header">Hello</div>
-            <div className="white-rectangle">Bye</div>
+            <SearchBar />     
+            <div className="white-rectangle"><Card /></div>
         </div>
     );
 };
@@ -31,6 +30,14 @@ function SearchBar() {
     );
 }
 
+function Card() {
+    return (
+        <div className="card">
+            <input type="text"  className="card" />
+            <img src={profileIcon} alt="Profile" className="profile-icon-white" />
+        </div>
+    );
+}
 export default ProfilePage;
 
 

@@ -15,15 +15,17 @@
 
 .white-rectangle {
     background-color: #FCF4E4;           /* Білий фон */
-    width: 100%;                        /* Ширина прямокутника */
+    width: 90%;                        /* Ширина прямокутника */
     max-width: 1200px;                  /* Максимальна ширина */
     height: 600px;
-    padding: 20px;                     /* Внутрішні відступи */
-    margin: 50px auto;                 /* Центрування прямокутника */
+    padding: 10px;                     /* Внутрішні відступи */
+    margin: 0px auto;                 /* Центрування прямокутника */
     border-radius: 10px;               /* Згладжені кути */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
     text-align: center;                /* Центрування тексту всередині */
 }
+
+
 
 body, html, #root {
     margin: 0;
@@ -58,28 +60,41 @@ body, html, #root {
     height: 40px;
 }
 
+.profile-icon-white {
+    height: 40px;
+}
+
 .search-bar {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 20px;
+    padding: 30px;
     background-color: #3b3b5f;
 }
 
 .search-input {
-    width: 50%;
+    width: 70%;
     padding: 10px;
     font-size: 16px;
     border: none;
     border-radius: 20px;
 }
 
+.card {
+    display: flex;
+    background-color: #3b3b5f;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    padding: 30px;
+}
 .main-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     padding: 20px;
+
 }
 
 .main-title {
