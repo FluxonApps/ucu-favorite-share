@@ -1,10 +1,9 @@
-import { CollectionReference, addDoc, collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { CollectionReference, addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { auth, db } from '../../firebase.config';
-import { update } from 'firebase/database';
 
 interface Question {
   question: string;
@@ -20,18 +19,11 @@ const questionsCollectionRef = collection(db, 'questions') as CollectionReferenc
 
 
 function Main() {
-  const [user, userLoading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const userRef = user && doc(db, `users/${user.uid}`);
 
-  // if (!user) {
-  //   return <Navigate to="/auth" replace />;
-  // }
-  // const [answers, setAnswers] = useState([]);
-  // const [answer, setAnswer] = useState('')
-  // const [images, setImages] = useState<File[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getRandomQuestion = () => {
     if (!questionsLoading && questions !== undefined) {
       if (questions.length > 0) {
@@ -56,56 +48,50 @@ function Main() {
   const [questions, questionsLoading] = useCollectionData(questionsCollectionRef);
 
   const submitAnswer = async () => {
-    if (!user) {
-      //
-
+    const userAnswerInput = document.getElementById('user-answer') as HTMLInputElement;
+  
+    if (!userAnswerInput) {
+      console.error('user-answer element not found');
       return;
     }
-
-    const userAnswerInput = document.getElementById('user-answer') as HTMLInputElement;
-    // const userImageInput = document.getElementById("user-image") as HTMLInputElement;
-
+  
     const userAnswer = userAnswerInput.value.trim();
-
+  
     if (userAnswer === '') {
       alert('Please enter an answer');
-
       return;
     }
-
+  
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
-
     const currentDay = mm + '/' + dd + '/' + yyyy;
+  
+    try {
 
-    const updateData = {
-      currentDay: [currentDay, currentQuestion, userAnswer]
-    };
-    // update(userRef, updateData)
-    //   .then(() => {
-    //     console.log('Update successful');
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error updating data: ', error);
-    //   });
-    await updateDoc(userRef, { answers: { [currentDay]: [currentQuestion, userAnswer] } })
+      const userSnapshot = await getDoc(userRef);
+      const userData = userSnapshot.data() as User;
 
-    // setAnswers([...answers, userAnswer]);
-    // setImages([...images, userImageInput.files![0]]);
+      const updatedAnswers = {
+        ...userData.answers,
+        [currentDay]: [currentQuestion, userAnswer],
+      };
 
-    alert('Answer submitted successfully');
-
-    userAnswerInput.value = '';
-    // userImageInput.value = "";
-  };
+      await updateDoc(userRef, { answers: updatedAnswers });
+  
+      alert('Answer submitted successfully');
+      userAnswerInput.value = '';
+    } catch (error) {
+      console.error('Error submitting answer:', error);
+      alert('An error occurred while submitting your answer. Please try again.');
+    }
+  };  
 
   const addQuestion = () => {
     const newQuestionInput = document.getElementById('new-question') as HTMLInputElement;
     const newQuestion = newQuestionInput.value.trim();
     if (newQuestion !== '') {
-      // setQuestions([...questions, newQuestion]);
       addDoc(questionsCollectionRef, { question: newQuestion });
       newQuestionInput.value = '';
       alert('New question added successfully');
@@ -119,7 +105,6 @@ function Main() {
       <div id="question-container">{currentQuestion || 'No question'}</div>
       <div id="answer-container">
         <input type="text" id="user-answer" placeholder="Your answer" />
-        {/* <input type="file" id="user-image" accept="image/*" /> */}
         <button onClick={submitAnswer}>Submit Answer</button>
       </div>
       <div id="add-question">
