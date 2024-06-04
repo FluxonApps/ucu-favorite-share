@@ -1,0 +1,26 @@
+.body {
+    background-color: #000000; /* Light grey background for the entire page */
+    margin: 0;                /* Remove default margin */
+    font-family: Arial, sans-serif; /* Default font family */
+}
+.profile-header {
+    background-color: #FCF4E4; /* Blue background color */
+    padding: 30px;             /* Padding around the text */
+    text-align: center;        /* Center-align text */
+    font-size: 2em;            /* Larger font size */
+    font-weight: bold;         /* Bold text */
+    border-radius: 5px;      
+
+  }
+
+.white-rectangle {
+    background-color: white;           /* Білий фон */
+    width: 100%;                        /* Ширина прямокутника */
+    max-width: 1200px;                  /* Максимальна ширина */
+    height: 900px;
+    padding: 20px;                     /* Внутрішні відступи */
+    margin: 50px auto;                 /* Центрування прямокутника */
+    border-radius: 10px;               /* Згладжені кути */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+    text-align: center;                /* Центрування тексту всередині */
+}
