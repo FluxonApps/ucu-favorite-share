@@ -1,51 +1,55 @@
 import React from 'react';
+
 import './ProfilePage.css';
 import logo from '../assets/BEHONEST02.png'; // Adjust the path as necessary
 import profileIcon from '../assets/profile_icon.png'; // Adjust the path as necessary
 
 const ProfilePage = () => {
-    return (
-        <div className="app">
-            <Header />
-            <SearchBar />     
-            <div className="white-rectangle"><Card /></div>
+  return (
+    <div className="app">
+      <Header />
+      <div className="white-rectangle">
+        <div className="row">
+          <img src={profileIcon} alt="Profile" className="profile-icon" />
+          <div>
+            <div className="nickname">Nickname</div>
+            <div className="followers">69 Followers</div>
+          </div>
         </div>
-    );
+        <div className="cards">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 function Header() {
-    return (
-        <header className="header">
-            <img src={logo} alt="Logo" className="logo" />
-            <img src={profileIcon} alt="Profile" className="profile-icon" />
-        </header>
-    );
-}
-
-function SearchBar() {
-    return (
-        <div className="search-bar">
-            <input type="text" placeholder="Search your friends" className="search-input" />
-        </div>
-    );
+  return (
+    <header className="header">
+      <img src={logo} alt="Logo" className="logo" />
+      <img src={profileIcon} alt="Profile" className="profile-icon" />
+    </header>
+  );
 }
 
 function Card() {
-    return (
-        <div className="card">
-            <input type="text"  className="card" />
-            <img src={profileIcon} alt="Profile" className="profile-icon-white" />
-        </div>
-    );
+  return (
+    <div className="card">
+      <h5>question</h5>
+      <p className="card">answer</p>
+    </div>
+  );
 }
+
 export default ProfilePage;
-
-
-
-
-
-
-
 
 // function MainContent() {
 //     return (

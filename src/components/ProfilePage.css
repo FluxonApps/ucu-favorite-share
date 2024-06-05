@@ -9,9 +9,29 @@
     text-align: center;        /* Center-align text */
     font-size: 2em;            /* Larger font size */
     font-weight: bold;         /* Bold text */
-    border-radius: 5px;      
+    border-radius: 5px;     
 
   }
+
+.nickname {
+    color: #000000;
+    text-align: left;        /* Center-align text */
+    font-size: 1.5em;            /* Larger font size */
+    padding-left: 30px;
+}
+.followers {
+    color: #000000;
+    text-align: left;        /* Center-align text */
+    font-size: 1.3em;            /* Larger font size */
+    padding-left: 30px;
+
+}
+
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
 
 .white-rectangle {
     background-color: #FCF4E4;           /* Білий фон */
@@ -19,7 +39,7 @@
     max-width: 1200px;                  /* Максимальна ширина */
     height: 600px;
     padding: 10px;                     /* Внутрішні відступи */
-    margin: 0px auto;                 /* Центрування прямокутника */
+    margin-top: 40px;                 /* Центрування прямокутника */
     border-radius: 10px;               /* Згладжені кути */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
     text-align: center;                /* Центрування тексту всередині */
@@ -60,6 +80,8 @@ body, html, #root {
 
 .profile-icon {
     height: 50px;
+    margin-left: 20px;
+    margin-top: 7px;
 }
 
 
@@ -90,7 +112,9 @@ body, html, #root {
     align-items: center;
     width: 20%;
     padding: 30px;
+    border-radius: 15px;
 }
+
 .main-content {
     display: flex;
     flex-direction: column;
@@ -98,6 +122,14 @@ body, html, #root {
     width: 100%;
     padding: 20px;
 
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .main-title {
