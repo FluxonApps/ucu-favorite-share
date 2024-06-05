@@ -20,7 +20,7 @@ export function FirebaseDemo() {
   const [users, usersLoading, usersError] = useCollection(query(usersCollectionRef) as CollectionReference<User>);
 
   const createUser = async () => {
-    const userData = { name: newName, mark: Number(newMark), someArray: [] }; // додаємо пустий масив
+    const userData = { name: newName, mark: Number(newMark), followers: [] }; // додаємо пустий масив
     await addDoc(usersCollectionRef, userData);
   };
 
