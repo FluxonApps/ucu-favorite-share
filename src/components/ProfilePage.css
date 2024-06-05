@@ -113,20 +113,28 @@ body, html, #root {
     align-items: center;
     width: 20%;
     height: 140px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 15px;
     border-color: #3b3b5f;
     border-width: 2px;
 }
 
+.josefin-sans{
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+
 .question{
     background-color: #F8D69C;
     width: 100%;
+    text-align: center;
+    height: 50px;
     border-radius: 9px;
     color: #000000;
     border-color: #3b3b5f;
     border-width: 2px;
-    margin-bottom: 10px;
 }
 
 .answer{

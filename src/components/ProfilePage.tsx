@@ -4,9 +4,26 @@ import './ProfilePage.css';
 import logo from '../assets/BEHONEST02.png'; // Adjust the path as necessary
 import profileIcon from '../assets/profile_icon.png'; // Adjust the path as necessary
 
+const preconnectFontGoogle = document.createElement('link');
+preconnectFontGoogle.rel = 'preconnect';
+preconnectFontGoogle.href = 'https://fonts.googleapis.com';
+
+const preconnectFontGstatic = document.createElement('link');
+preconnectFontGstatic.rel = 'preconnect';
+preconnectFontGstatic.href = 'https://fonts.gstatic.com';
+preconnectFontGstatic.setAttribute('crossorigin', '');
+
+const fontStyleSheet = document.createElement('link');
+fontStyleSheet.href = 'https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap';
+fontStyleSheet.rel = 'stylesheet';
+
+document.head.appendChild(preconnectFontGoogle);
+document.head.appendChild(preconnectFontGstatic);
+document.head.appendChild(fontStyleSheet);
+
 const ProfilePage = () => {
   return (
-    <div className="app">
+    <div className="app josefin-sans">
       <Header />
       <div className="white-rectangle">
         <div className="row">
@@ -43,7 +60,7 @@ function Header() {
 function Card() {
   return (
     <div className="card">
-      <h2 className='question'>question</h2>
+      <h2 className='question josefin-sans'>question</h2>
       <p className="answer">answer</p>
     </div>
   );
