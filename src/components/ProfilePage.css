@@ -166,3 +166,16 @@ body, html, #root {
     font-size: 36px;
     margin-bottom: 20px;
 }
+
+.button{
+
+    background-color: #444A6E;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border: black;
+    border-radius: 15px;
+    color: white;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
