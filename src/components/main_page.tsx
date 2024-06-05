@@ -6,7 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { auth, db } from '../../firebase.config';
-import logo from '../assets/BEHONEST02.png'; // Ensure the correct path to your image file
+import logo from '../assets/BEHONEST02.png';
 
 interface Question {
   question: string;
@@ -103,19 +103,6 @@ function Main() {
     }
   };
 
-  // return (
-  //   <div>
-  //     <div id="question-container">{currentQuestion || 'No question'}</div>
-  //     <div id="answer-container">
-  //       <input type="text" id="user-answer" placeholder="Your answer" />
-  //       <button onClick={submitAnswer}>Submit Answer</button>
-  //     </div>
-  //     <div id="add-question">
-  //       <input type="text" id="new-question" placeholder="Enter a new question" />
-  //       <button onClick={addQuestion}>Add Question</button>
-  //     </div>
-  //   </div>
-  // );
   return (
     <div className="app-container">
       <header>

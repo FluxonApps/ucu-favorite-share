@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Input, Stack, Text, useToast } from '@chakra-ui/react';
 import { getAuth } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, setDoc } from 'firebase/firestore';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import {
   useAuthState,
@@ -14,7 +14,6 @@ import { db } from '../../firebase.config.ts';
 import MainLayout from './layout/MainLayout.tsx';
 
 const auth = getAuth();
-
 const AuthPage = () => {
   const toast = useToast();
 
@@ -65,13 +64,19 @@ const AuthPage = () => {
 
   const signUp = async () => {
     try {
+      const usernameExists = await checkIfUsernameExists(username);
+  
+      if (usernameExists) {
+        alert('Username is already taken. Please choose a different one.');
+        return;
+      }
+  
       const res = await createUserWithEmailAndPassword(email, password);
       if (!res) throw new Error();
-
-      // Save user to database.
+  
       const userDocRef = doc(db, 'users', res.user.uid);
       await setDoc(userDocRef, { email, username, followers: [], answers: [] });
-
+  
       toast({ status: 'success', description: 'Successfully signed up!' });
     } catch (e) {
       console.error(e);
@@ -82,6 +87,7 @@ const AuthPage = () => {
       });
     }
   };
+  
 
   const handleAuth = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -97,6 +103,12 @@ const AuthPage = () => {
   if (user) {
     return <Navigate to="/main" replace />;
   }
+  const checkIfUsernameExists = async (username) => {
+    const q = query(collection(db, 'users'), where('username', '==', username));
+    const querySnapshot = await getDocs(q);
+
+    return !querySnapshot.empty;
+  };
 
   return (
     <MainLayout>
