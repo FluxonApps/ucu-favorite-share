@@ -6,7 +6,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { auth, db } from '../../firebase.config';
-import logo from '../assets/BEHONEST02.png';
+import logo from '../assets/BEHONEST02.png'; // Ensure the correct path to your image file
+import { Link, Navigate } from 'react-router-dom';
 
 interface Question {
   question: string;
@@ -75,7 +76,6 @@ function Main() {
     try {
       const userSnapshot = await getDoc(userRef);
       const userData = userSnapshot.data() as User;
-
       const updatedAnswers = {
         ...userData.answers,
         [currentDay]: [currentQuestion, userAnswer],
@@ -90,6 +90,8 @@ function Main() {
       alert('An error occurred while submitting your answer. Please try again.');
     }
   };
+
+
 
   const addQuestion = () => {
     const newQuestionInput = document.getElementById('new-question') as HTMLInputElement;
@@ -108,8 +110,14 @@ function Main() {
       <header>
         <img src={logo} alt="BEHONEST Logo" className="app-logo" />
         <div className="search-bar-container">
-          <input className="search-bar" type="text" placeholder="Search your friends" />
-          <span className="search-icon">&#128269;</span> {/* Unicode character for magnifying glass */}
+          {/* <input className="search-bar" type="text" placeholder="Search your friends" /> */}
+          <div className="search-button">
+          {/* Використовуємо Link замість a */}
+          <Link to="/search">
+            <button>Search for new friends...</button>
+          </Link>
+        </div>
+          {/* <span className="search-icon">&#128269;</span> Unicode character for magnifying glass */}
         </div>
       </header>
       <main>

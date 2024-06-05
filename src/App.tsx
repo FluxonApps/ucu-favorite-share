@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import { Stack, Img, Link, Text, HStack } from '@chakra-ui/react'; // Import necessary Chakra UI components
-import MainLayout from './components/layout/MainLayout'; // Update import path for MainLayout
-import AuthPage from './components/AuthPage'; // Remove .tsx extension
-import DashboardPage from './components/DashboardPage'; // Remove .tsx extension
-import FirebaseDemo from './components/FirebaseDemo'; // Remove .tsx extension
-import Main from './components/main_page'; // Remove .tsx extension
+
+import fluxonLogo from './assets/fluxon-logo.svg';
+import AuthPage from './components/AuthPage.tsx';
+import DashboardPage from './components/DashboardPage.tsx';
+import FirebaseDemo from './components/FirebaseDemo.tsx';
+import MainLayout from './components/layout/MainLayout.tsx';
+import Main from './components/main_page.tsx';
 import logoWhite from '../logo_white.png';
 
 export const App = () => {
@@ -15,6 +16,7 @@ export const App = () => {
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/main" element={<Main />} />
+      <Route path="/search" element={<Search />} />
     </Routes>
   );
 };
