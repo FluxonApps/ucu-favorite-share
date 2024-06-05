@@ -7,6 +7,8 @@ import FirebaseDemo from './components/FirebaseDemo.tsx';
 import MainLayout from './components/layout/MainLayout.tsx';
 import Main from './components/main_page.tsx';
 import logoWhite from '../logo_white.png';
+import Search from './components/Search.tsx';
+import { HStack, Img, Link, Stack, Text } from '@chakra-ui/react';
 
 export const App = () => {
   return (
