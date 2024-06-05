@@ -102,7 +102,7 @@ function Main() {
 
   return (
     <div>
-      <div id="question-container">{currentQuestion || 'No question'}</div>
+      <div id="question-container">{currentQuestion || 'Loading...'}</div>
       <div id="answer-container">
         <input type="text" id="user-answer" placeholder="Your answer" />
         <button onClick={submitAnswer}>Submit Answer</button>

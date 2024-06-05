@@ -95,7 +95,7 @@ const AuthPage = () => {
 
   // Check if user is already signed in. If yes, redirect to main app.
   if (user) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/main" replace />;
   }
 
   return (
