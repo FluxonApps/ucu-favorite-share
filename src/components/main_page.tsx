@@ -1,9 +1,12 @@
+import './main_page.css'; // Create a CSS file for custom styles
+
 import { CollectionReference, addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { auth, db } from '../../firebase.config';
+import logo from '../assets/BEHONEST02.png'; // Ensure the correct path to your image file
 
 interface Question {
   question: string;
@@ -16,7 +19,6 @@ interface User {
   followers: Array<string>;
 }
 const questionsCollectionRef = collection(db, 'questions') as CollectionReference<Question>;
-
 
 function Main() {
   const [user] = useAuthState(auth);
@@ -49,27 +51,28 @@ function Main() {
 
   const submitAnswer = async () => {
     const userAnswerInput = document.getElementById('user-answer') as HTMLInputElement;
-  
+
     if (!userAnswerInput) {
       console.error('user-answer element not found');
+
       return;
     }
-  
+
     const userAnswer = userAnswerInput.value.trim();
-  
+
     if (userAnswer === '') {
       alert('Please enter an answer');
+
       return;
     }
-  
+
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
     const currentDay = mm + '/' + dd + '/' + yyyy;
-  
-    try {
 
+    try {
       const userSnapshot = await getDoc(userRef);
       const userData = userSnapshot.data() as User;
 
@@ -79,14 +82,14 @@ function Main() {
       };
 
       await updateDoc(userRef, { answers: updatedAnswers });
-  
+
       alert('Answer submitted successfully');
       userAnswerInput.value = '';
     } catch (error) {
       console.error('Error submitting answer:', error);
       alert('An error occurred while submitting your answer. Please try again.');
     }
-  };  
+  };
 
   const addQuestion = () => {
     const newQuestionInput = document.getElementById('new-question') as HTMLInputElement;
@@ -100,17 +103,49 @@ function Main() {
     }
   };
 
+  // return (
+  //   <div>
+  //     <div id="question-container">{currentQuestion || 'No question'}</div>
+  //     <div id="answer-container">
+  //       <input type="text" id="user-answer" placeholder="Your answer" />
+  //       <button onClick={submitAnswer}>Submit Answer</button>
+  //     </div>
+  //     <div id="add-question">
+  //       <input type="text" id="new-question" placeholder="Enter a new question" />
+  //       <button onClick={addQuestion}>Add Question</button>
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div>
-      <div id="question-container">{currentQuestion || 'Loading...'}</div>
-      <div id="answer-container">
-        <input type="text" id="user-answer" placeholder="Your answer" />
-        <button onClick={submitAnswer}>Submit Answer</button>
-      </div>
-      <div id="add-question">
-        <input type="text" id="new-question" placeholder="Enter a new question" />
-        <button onClick={addQuestion}>Add Question</button>
-      </div>
+    <div className="app-container">
+      <header>
+        <img src={logo} alt="BEHONEST Logo" className="app-logo" />
+        <div className="search-bar-container">
+          <input className="search-bar" type="text" placeholder="Search your friends" />
+          <span className="search-icon">&#128269;</span> {/* Unicode character for magnifying glass */}
+        </div>
+      </header>
+      <main>
+        {/* Question Section in a Separate Container */}
+        <section className="question-section">
+          <div id="question-container" className="question-container">
+            {currentQuestion}
+          </div>
+        </section>
+
+        {/* Answer Section in a Separate Container */}
+        <section className="answer-section">
+          <textarea id="user-answer" placeholder="Write your answer here..." className="answer-input" />
+          <button onClick={submitAnswer} className="submit-button">Post</button>
+        </section>
+      </main>
+      <main>
+        {/* Add Question Section (remains the same) */}
+        <section className="add-question-section">
+          <input type="text" id="new-question" placeholder="Enter a new question" className="new-question-input" />
+          <button onClick={addQuestion} className="add-question-button">Add Question</button>
+        </section>
+      </main>
     </div>
   );
 }
