@@ -26,13 +26,13 @@ const AuthPage = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUserName] = useState('')
+  const [username, setUserName] = useState('');
 
   const switchAuthMode = () => {
     setShowSignIn((prevState) => !prevState);
     setEmail('');
     setPassword('');
-    setUserName('')
+    setUserName('');
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +113,11 @@ const AuthPage = () => {
               minLength={6}
               required
             />
-            <Input placeholder="Username" onChange={handleUserNameChange} value={username} required />
+            {!showSignIn ? (
+              <Input placeholder="Username" onChange={handleUserNameChange} value={username} required />
+            ) : (
+              ''
+            )}
             <Button type="submit" colorScheme="blue" isDisabled={loading} isLoading={loading}>
               Submit
             </Button>
