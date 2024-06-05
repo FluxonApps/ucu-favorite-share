@@ -68,7 +68,7 @@ const ProfilePage = () => {
             <div className="followers">{currentUser.followers.length} Followers</div>
           </div>
         </div>
-        <div className="cards">
+        <div className="cards row">
           {Object.entries(answers).map(([key, value]) => {
             const [question, answer] = value as [string, string];
 
