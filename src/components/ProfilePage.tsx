@@ -43,8 +43,8 @@ function Header() {
 function Card() {
   return (
     <div className="card">
-      <h5>question</h5>
-      <p className="card">answer</p>
+      <h2 className='question'>question</h2>
+      <p className="answer">answer</p>
     </div>
   );
 }

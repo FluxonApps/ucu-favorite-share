@@ -108,12 +108,28 @@ body, html, #root {
 
 .card {
     display: flex;
-    background-color: #3b3b5f;
+    background-color: #F2EEEE;
     flex-direction: column;
     align-items: center;
     width: 20%;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
+    border-color: #3b3b5f;
+    border-width: 2px;
+}
+
+.question{
+    background-color: #F8D69C;
+    width: 100%;
+    border-radius: 15px;
+    color: #000000;
+    border-color: #3b3b5f;
+    border-width: 2px;
+    margin-bottom: 10px;
+}
+
+.answer{
+    color: #000000;
 }
 
 .main-content {
