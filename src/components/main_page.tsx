@@ -13,7 +13,7 @@ interface User {
   email: string;
   username: string;
   answers: Array<Array<string>>;
-  followings: Array<string>;
+  followers: Array<string>;
 }
 const questionsCollectionRef = collection(db, 'questions') as CollectionReference<Question>;
 
