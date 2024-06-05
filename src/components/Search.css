@@ -1,0 +1,51 @@
+/* search.css */
+
+/* Container for the entire search component */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Search input */
+.search-input {
+  width: 300px; /* Adjust width as needed */
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/* List item for each user */
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* Button container */
+.button-container {
+  background-color: #007bff; /* Blue background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding inside the button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Hand cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Hover effect for button */
+.button-container:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styling for followed users */
+.following {
+  background-color: #6c757d; /* Gray background color */
+  cursor: default; /* Default cursor */
+}
+
+/* Hover effect for followed users */
+.following:hover {
+  background-color: #6c757d; /* Maintain gray color on hover */
+}
