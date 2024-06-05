@@ -1,8 +1,4 @@
-.body {
-    background-color: #000000; /* Light grey background for the entire page */
-    margin: 0;                /* Remove default margin */
-    font-family: Arial, sans-serif; /* Default font family */
-}
+
 .profile-header {
     background-color: #FCF4E4; /* Blue background color */
     padding: 30px;             /* Padding around the text */
@@ -51,7 +47,7 @@
 body, html, #root {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 3000px;;
     font-family: 'Arial', sans-serif;
 }
 
@@ -61,7 +57,7 @@ body, html, #root {
     align-items: center;
     background-color: #3b3b5f; /* Adjust background color to match your design */
     color: #fff;
-    height: 100%;
+    height: 2000px;
 }
 
 .header {

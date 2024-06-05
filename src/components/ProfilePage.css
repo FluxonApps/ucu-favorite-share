@@ -38,7 +38,7 @@
     background-color: #FCF4E4;           /* Білий фон */
     width: 90%;                        /* Ширина прямокутника */
     max-width: 1200px;                  /* Максимальна ширина */
-    height: 600px;
+    height: 90%;
     padding: 10px;                     /* Внутрішні відступи */
     margin-top: 40px;                 /* Центрування прямокутника */
     border-radius: 10px;               /* Згладжені кути */
@@ -61,7 +61,7 @@ body, html, #root {
     align-items: center;
     background-color: #3b3b5f; /* Adjust background color to match your design */
     color: #fff;
-    height: 100%;
+    height: 2000px;
 }
 
 .header {
