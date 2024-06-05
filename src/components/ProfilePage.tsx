@@ -10,8 +10,16 @@ import logo from '../assets/BEHONEST02.png'; // Adjust the path as necessary
 import profileIcon from '../assets/profile_icon.png'; // Adjust the path as necessary
 
 import { getAuth } from 'firebase/auth';
-import { doc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
+import { Spinner } from '@chakra-ui/react';
 
+interface User {
+  id: string;
+  email: string;
+  username: string;
+  answers: Array<Array<string>>;
+  followers: Array<string>;
+}
 const auth = getAuth();
 
 const preconnectFontGoogle = document.createElement('link');
@@ -41,6 +49,14 @@ const ProfilePage = () => {
 
   const answers = currentUser && currentUser.answers;
 
+  if (userLoading && currentUserLoading) {
+    return <Spinner />;
+  }
+
+  if (!currentUser) {
+    return 'No user!';
+  }
+
   return (
     <div className="app josefin-sans">
       <Header />
@@ -48,24 +64,31 @@ const ProfilePage = () => {
         <div className="row">
           <img src={profileIcon} alt="Profile" className="profile-icon" />
           <div>
-            <div className="nickname">Nickname</div>
-            <div className="followers">69 Followers</div>
+            <div className="nickname">{currentUser.username}</div>
+            <div className="followers">{currentUser.followers.length} Followers</div>
           </div>
         </div>
         <div className="cards">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {Object.entries(answers).map(([key, value]) => {
+            const [question, answer] = value as [string, string];
+
+            return (
+              <div>
+                <Card question={question} answer={answer} />
+              </div>
+            );
+          })}
+          {/* <h2 className="question josefin-sans">{currentUser.answers}</h2>
+            <p className="answer">{currentUser.answers}</p> */}
         </div>
       </div>
     </div>
   );
 };
+
+function getValue(obj, key) {
+  return obj[key];
+}
 
 function Header() {
   return (
@@ -76,11 +99,11 @@ function Header() {
   );
 }
 
-function Card() {
+function Card({ question, answer }) {
   return (
     <div className="card">
-      <h2 className="question josefin-sans">question</h2>
-      <p className="answer">answer</p>
+      <h2 className="question josefin-sans">{question}</h2>
+      <p className="answer">{answer}</p>
     </div>
   );
 }
