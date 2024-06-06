@@ -24,7 +24,6 @@ const questionsCollectionRef = collection(db, 'questions') as CollectionReferenc
 function Main() {
   const [user] = useAuthState(auth);
   const userRef = user && doc(db, `users/${user.uid}`);
-  const [redirectToMainFeed, setRedirectToMainFeed] = useState(false);
 
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
 
@@ -35,6 +34,8 @@ function Main() {
   const mm = String(today.getMonth() + 1).padStart(2, '0');
   const yyyy = today.getFullYear();
   const currentDay = mm + '/' + dd + '/' + yyyy;
+
+  const redirectToMainFeed = Boolean(currentUser?.answers[currentDay]);
 
   const getRandomQuestion = () => {
     if (!questionsLoading && questions !== undefined) {
@@ -102,7 +103,6 @@ function Main() {
       await updateDoc(userRef, { answers: updatedAnswers });
 
       userAnswerInput.value = '';
-      setRedirectToMainFeed(true);
     } catch (error) {
       console.error('Error submitting answer:', error);
       alert('An error occurred while submitting your answer. Please try again.');
