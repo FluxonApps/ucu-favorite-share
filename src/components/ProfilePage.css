@@ -1,8 +1,5 @@
-.body {
-    background-color: #000000; /* Light grey background for the entire page */
-    margin: 0;                /* Remove default margin */
-    font-family: Arial, sans-serif; /* Default font family */
-}
+
+
 .profile-header {
     background-color: #FCF4E4; /* Blue background color */
     padding: 30px;             /* Padding around the text */
@@ -38,12 +35,14 @@
     background-color: #FCF4E4;           /* Білий фон */
     width: 90%;                        /* Ширина прямокутника */
     max-width: 1200px;                  /* Максимальна ширина */
-    height: 90%;
+    min-height: 500px;
+    height: auto;
     padding: 10px;                     /* Внутрішні відступи */
     margin-top: 40px;                 /* Центрування прямокутника */
     border-radius: 10px;               /* Згладжені кути */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
-    text-align: center;                /* Центрування тексту всередині */
+    text-align: center;
+    /* padding-bottom: 200px;               Центрування тексту всередині */
 }
 
 
@@ -60,8 +59,8 @@ body, html, #root {
     flex-direction: column;
     align-items: center;
     background-color: #3b3b5f; /* Adjust background color to match your design */
-    color: #fff;
-    height: 2000px;
+    min-height: 800px;
+    height: auto;
 }
 
 .header {
@@ -79,15 +78,67 @@ body, html, #root {
     height: 110px;
 }
 
-.profile-icon {
-    height: 50px;
+.logo-icon {
+    height: 60px;
     margin-left: 40px;
     margin-top: 18px;
+    text-align: center;
 }
+
+/* background-color: #F2EEEE;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border-width: 1.5px;
+    border-color: #444A6E!important;
+    border-radius: 7px;
+    color: #444A6E;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 100px;
+    height: 30px; */
+
+.input-file {
+    display: none;
+  }
+  
+  .label-file {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border-width: 1.5px;
+    border-color: #444A6E!important;
+    border-radius: 7px;
+    display: inline-block;
+    cursor: pointer;
+    color: #444A6E;
+    background-color: #F2EEEE;
+    padding: 0px 20px;
+    /* transition: background-color 0.3s, color 0.3s, transform 0.3s; */
+    width: auto;
+    height: auto;
+  }
+  
+  .label-file:hover {
+    background-color: hwb(45 50% 14% / 0.601);
+  }
+
+.profile-icon {
+    width: 100px; /* Встановіть бажану ширину */
+    height: 100px; /* Встановіть бажану висоту */
+    border-radius: 50%; /* Зробить іконку круглою */
+    object-fit: cover; /* Зробить так, щоб зображення заповнювало круглу рамку */
+    border: 2px solid #fff; /* Додайте рамку, якщо потрібно */
+    /* padding: 5px; */
+    margin: 7px;
+  }
 
 
 .profile-icon-white {
-    height: 40px;
+    height: 80px;
 }
 
 .search-bar {
@@ -169,13 +220,23 @@ body, html, #root {
 
 .button{
 
-    background-color: #444A6E;
-    font-size: 14px;
+    background-color: #F2EEEE;
+    font-size: 18px;
     font-weight: 600;
     text-align: center;
     cursor: pointer;
-    border: black;
-    border-radius: 15px;
-    color: white;
-    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    border-width: 1.5px;
+    border-color: #444A6E!important;
+    border-radius: 7px;
+    color: #444A6E;
+    /* transition: background-color 0.3s, color 0.3s, transform 0.3s; */
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 100px;
+    height: 30px;
+}
+
+.footer{
+    margin-top: 50px;
+    height: 80px;
 }

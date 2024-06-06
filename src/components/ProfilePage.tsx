@@ -1,17 +1,19 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import './ProfilePage.css';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Navigate } from 'react-router-dom';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { db } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Adjust the path as necessary
-import profileIcon from '../assets/profile_icon.png'; // Adjust the path as necessary
+import profileIcon from '../assets/defaultPhoto.png'; // Adjust the path as necessary
+import logow from '../assets/BEHONEST_w.png'; // Adjust the path as necessary
 
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Spinner } from '@chakra-ui/react';
+// import { getStorage } from 'firebase/storage';
 
 interface User {
   id: string;
@@ -48,6 +50,51 @@ const ProfilePage = () => {
   const [currentUser, currentUserLoading] = useDocumentData(currentUserRef);
 
   const answers = currentUser && currentUser.answers;
+  const storage = getStorage();
+
+  function UploadImage() {
+    const [file, setFile] = useState<File | null>(null);
+
+    const handleFileChange = (event) => {
+      const selectedFile = event.target.files[0];
+      setFile(selectedFile);
+      alert("To save changes click 'Upload'")
+    };
+
+    const handleUpload = async () => {
+      try {
+        if (!file) {
+          console.error('No file selected');
+
+          return;
+        }
+
+        const imageRef = ref(storage, `images/${Date.now()}-${file.name}`);
+        await uploadBytes(imageRef, file);
+
+        const profilePictureUrl = await getDownloadURL(imageRef);
+
+        if (currentUserRef) {
+          await updateDoc(currentUserRef, { profileImage: profilePictureUrl });
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        // Handle error appropriately
+      }
+    };
+
+    return (
+      <div>
+        <input id="file-input" className="input-file" type="file" onChange={handleFileChange} />
+        <label htmlFor="file-input" className="label-file">
+          Choose a file
+        </label>
+        <button className="button" onClick={handleUpload}>
+          Upload
+        </button>
+      </div>
+    );
+  }
 
   if (userLoading && currentUserLoading) {
     return <Spinner />;
@@ -62,11 +109,12 @@ const ProfilePage = () => {
       <Header />
       <div className="white-rectangle">
         <div className="row">
-          <img src={profileIcon} alt="Profile" className="profile-icon" />
+          <img src={currentUser.profileImage || profileIcon} alt="Profile" className="profile-icon" />
           <div>
             <div className="nickname">{currentUser.username}</div>
             <div className="followers">{currentUser.followers.length} Followers</div>
-            <div className="button">Change</div>
+            {/* <div className="button"><UploadImage /></div> */}
+            <UploadImage />
           </div>
         </div>
         <div className="cards row">
@@ -83,6 +131,7 @@ const ProfilePage = () => {
             <p className="answer">{currentUser.answers}</p> */}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
@@ -95,7 +144,8 @@ function Header() {
   return (
     <header className="header">
       <img src={logo} alt="Logo" className="logo" />
-      <img src={profileIcon} alt="Profile" className="profile-icon" />
+      <button className="button">Profile</button>
+      {/* <img src={profileIcon} alt="Profile" className="profile-icon" /> */}
     </header>
   );
 }
@@ -109,5 +159,12 @@ function Card({ question, answer }) {
   );
 }
 
-export default ProfilePage;
+function Footer() {
+  return (
+    <div className="footer">
+      <img src={logow} alt="Profile" className="logo-icon" />
+    </div>
+  );
+}
 
+export default ProfilePage;
