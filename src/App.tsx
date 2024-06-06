@@ -9,6 +9,7 @@ import Main from './components/main_page.tsx';
 import logoWhite from '../logo_white.png';
 import Search from './components/Search.tsx';
 import { HStack, Img, Link, Stack, Text } from '@chakra-ui/react';
+import ProfilePage from './components/ProfilePage.tsx';
 
 export const App = () => {
   return (
@@ -19,6 +20,7 @@ export const App = () => {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/main" element={<Main />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/profile" element={<ProfilePage />} />
     </Routes>
   );
 };

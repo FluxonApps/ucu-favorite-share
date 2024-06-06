@@ -1,0 +1,27 @@
+.profile-header {
+    background-color: #FCF4E4; /* Blue background color */
+    padding: 30px;             /* Padding around the text */
+    text-align: center;        /* Center-align text */
+    font-size: 2em;            /* Larger font size */
+    font-weight: bold;         /* Bold text */
+    border-radius: 5px;     
+
+  }
+
+.button{
+
+    background-color: #F2EEEE;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border-width: 1.5px;
+    border-color: #444A6E!important;
+    border-radius: 7px;
+    color: #444A6E;
+    /* transition: background-color 0.3s, color 0.3s, transform 0.3s; */
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 100px;
+    height: 30px;
+}

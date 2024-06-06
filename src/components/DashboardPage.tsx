@@ -1,12 +1,21 @@
 import { Box, Button, Spinner, Text } from '@chakra-ui/react';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Navigate } from 'react-router-dom';
+import { db } from '../../firebase.config';
+import { doc } from 'firebase/firestore';
 
 import { auth } from '../../firebase.config';
 
 const DashboardPage = () => {
   const [user, userLoading] = useAuthState(auth);
   const [signOut, isSigningOut] = useSignOut(auth);
+
+  const currentUserRef = user && doc(db, `/users/${user.uid}`)
+
+  const [currentUser, currentUserLoading] = useDocumentData(currentUserRef)
+  
+  const answers = currentUser && currentUser.answers;
 
   // Do not show page content until auth state is fetched.
   if (userLoading) {
