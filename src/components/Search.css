@@ -1,4 +1,25 @@
-/* search.css */
+/* General body styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #2c2b4a;
+}
+
+/* Header styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #e7e3d4;
+}
+
+/* App logo styling */
+.app-logo {
+  height: 70px; /* Adjusted to a fixed height instead of using 'cap' */
+}
 
 /* Container for the entire search component */
 .search-container {
@@ -7,13 +28,18 @@
   align-items: center; /* Center items horizontally */
   justify-content: center; /* Center items vertically */
   height: 100vh; /* Full viewport height */
+  background-color: #2c2b4a;
 }
 
-/* Search input */
+/* Search input styling */
 .search-input {
   width: 300px; /* Adjust width as needed */
   padding: 10px;
   margin-bottom: 20px;
+  border: 1px solid #ccc; /* Added border for better visibility */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #e7e3d4;
 }
 
 /* List item for each user */
@@ -21,10 +47,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 300px; /* Adjusted width for consistency */
   margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff; /* White background for better readability */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Button container */
+/* Button container styling */
 .button-container {
   background-color: #007bff; /* Blue background color */
   color: white; /* White text color */
@@ -32,6 +63,8 @@
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Hand cursor on hover */
   transition: background-color 0.3s ease; /* Smooth background color transition */
+  border: none; /* Removed default button border */
+  text-align: center; /* Center text inside button */
 }
 
 /* Hover effect for button */

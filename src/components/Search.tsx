@@ -1,9 +1,11 @@
+import './Search.css'; // Import and connect your CSS file for styling
+
 import React, { useState, useEffect } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, query, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { collection, query, getDoc, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { db, auth } from '../../firebase.config';
-import './Search.css'; // Import and connect your CSS file for styling
+import logo from '../assets/BEHONEST02.png'; // Ensure the correct path and file extension
 
 const usersCollectionRef = collection(db, 'users');
 
@@ -23,8 +25,10 @@ function Search() {
     if (user) {
       const fetchCurrentUserData = async () => {
         const userDocRef = doc(db, 'users', user.uid);
-        const userDocSnap = await getDocs(userDocRef);
-        setCurrentUserData(userDocSnap.data());
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          setCurrentUserData(userDocSnap.data());
+        }
       };
       fetchCurrentUserData();
     }
@@ -40,8 +44,8 @@ function Search() {
   // Filter users based on search term, excluding current user
   const filteredUsers = usersSnapshot && usersSnapshot.docs
     .map(doc => ({ id: doc.id, ...doc.data() }))
-    .filter(user => 
-      user.username.toLowerCase().includes(searchTerm.toLowerCase()) && user.id !== user.uid && user.username !== (currentUserData && currentUserData.username)
+    .filter(u => 
+      u.username.toLowerCase().includes(searchTerm.toLowerCase()) && u.id !== user.uid && u.username !== (currentUserData && currentUserData.username)
     );
 
   // Function to check if a user is followed
@@ -56,19 +60,32 @@ function Search() {
       return;
     }
 
+    // Check if the target user is the current user
+    if (targetUserId === user.uid) {
+      console.error('Cannot follow yourself');
+      return;
+    }
+
     const userId = user.uid;
 
     try {
       const userDocRef = doc(db, 'users', targetUserId);
+      const currentUserDocRef = doc(db, 'users', userId);
       if (isUserFollowed(targetUserId)) {
         await updateDoc(userDocRef, {
           followers: arrayRemove(userId)
+        });
+        await updateDoc(currentUserDocRef, {
+          following: arrayRemove(targetUserId)
         });
         setFollowingUsers(prevState => prevState.filter(id => id !== targetUserId));
         console.log(`User ${userId} unfollowed user ${targetUserId}`);
       } else {
         await updateDoc(userDocRef, {
           followers: arrayUnion(userId)
+        });
+        await updateDoc(currentUserDocRef, {
+          following: arrayUnion(targetUserId)
         });
         setFollowingUsers(prevState => [...prevState, targetUserId]);
         console.log(`User ${userId} followed user ${targetUserId}`);
@@ -85,37 +102,38 @@ function Search() {
   };
 
   return (
-    <div className="search-container">
-      <input
-        type="text"
-        className="search-input"
-        placeholder="Search users..."
-        value={searchTerm}
-        onChange={handleInputChange}
-      />
-      {displayUsers && ( // Display users only if displayUsers is true
-        <ul>
-          {usersLoading && <li>Loading...</li>}
-          {usersError && <li>Error loading users: {usersError.message}</li>}
-          {filteredUsers && filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <li key={user.id} className="user-item">
-                <span>{user.username}</span>
-                <div
-                  className={`button-container ${isUserFollowed(user.id) ? 'following' : ''}`}
-                  onClick={() => handleButtonClick(user.id)}
-                >
-                  {isUserFollowed(user.id) ? 'Following' : 'Follow'}
-                </div>
-              </li>
-            ))
-          ) : (
-            !usersLoading && <li>No users found</li>
-          )}
-        </ul>
-      )}
-    </div>
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search users..."
+          value={searchTerm}
+          onChange={handleInputChange}
+        />
+        {displayUsers && ( // Display users only if displayUsers is true
+          <ul>
+            {usersLoading && <li>Loading...</li>}
+            {usersError && <li>Error loading users: {usersError.message}</li>}
+            {filteredUsers && filteredUsers.length > 0 ? (
+              filteredUsers.map((u) => (
+                <li key={u.id} className="user-item">
+                  <span>{u.username}</span>
+                  <div
+                    className={`button-container ${isUserFollowed(u.id) ? 'following' : ''}`}
+                    onClick={() => handleButtonClick(u.id)}
+                  >
+                    {isUserFollowed(u.id) ? 'Following' : 'Follow'}
+                  </div>
+                </li>
+              ))
+            ) : (
+              !usersLoading && <li>No users found</li>
+            )}
+          </ul>
+        )}
+      </div>
   );
 }
 
 export default Search;
+
