@@ -99,12 +99,15 @@ body, html, #root {
 }
 
 .friend-avatar {
-    width: 50px;
-    height: 50px;
-    background-color: #e7e3d4;
+    margin-right: 15px;
+}
 
+.avatar-img {
+    width: 70px; /* Adjust size as needed */
+    height: 70px; /* Adjust size as needed */
     border-radius: 50%;
-    margin-right: 10px;
+    object-fit: cover;
+    border: 2px solid #ccc; /* Optional: adds a border around the avatar */
 }
 
 .friend-details {
@@ -120,3 +123,4 @@ body, html, #root {
 .friend-answer {
     font-size: 14px;
 }
+

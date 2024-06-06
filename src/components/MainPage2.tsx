@@ -1,4 +1,4 @@
-import logo from '../assets/BEHONEST02.png';
+import logo from '../assets/behonest_purple_logo.png';
 import profileIcon from '../assets/profile_icon.png';
 import './MainPage2.css';
 import { Spinner } from '@chakra-ui/react';
@@ -64,11 +64,20 @@ function MainContent({ users, loading, error }) {
     const yyyy = today.getFullYear();
     const currentDay = mm + '/' + dd + '/' + yyyy;
 
+    const hasUsersWithPosts = users && users.docs.some((doc) => {
+        const user = doc.data();
+        const answers = user.answers;
+        const dates = Object.keys(answers).sort();
+        return dates.includes(currentDay);
+    });
+
     return (
         <main className="main-content">
-            {loading && <Spinner />}
             {error && <p>Error: {error.message}</p>}
-            <h1 className="main-title">FRIEND'S QUESTIONS</h1>
+            <h1 className="main-title">FOLLOWINGS' ANSWERS</h1>
+            {users && users.docs && users.docs.length === 0 && <p>You haven't started following someone yet.</p>}
+            {!users && <Spinner />}
+            {users && !hasUsersWithPosts && users.docs.length !== 0 && <p>Nobody have posted their answers yet.</p>}
             {users && users.docs.map((doc) => {
                 const user = doc.data();
                 const answers = user.answers;
@@ -85,7 +94,7 @@ function MainContent({ users, loading, error }) {
                         nickname={user.username}
                         question={lastAnswer[0]}
                         answer={lastAnswer[1]}
-                        avatar={profileIcon}
+                        avatar={user.profileImage}
                     />
                 );
             })}
@@ -107,8 +116,7 @@ function FriendResponse({ nickname, question, answer, avatar }) {
     return (
         <div className="friend-response">
             <div className="friend-avatar">
-                {/* <img src={avatar} alt={`${nickname}'s avatar`} /> */}
-                <img src={gudzak} alt={`${nickname}'s avatar`} />
+                <img src={avatar} alt={`${nickname}'s avatar`}  className="avatar-img" />
             </div>
             <div className="friend-details">
                 <div className="friend-nickname">{nickname}</div>

@@ -6,8 +6,6 @@ import AuthPage from './components/AuthPage.tsx';
 import DashboardPage from './components/DashboardPage.tsx';
 import FirebaseDemo from './components/FirebaseDemo.tsx';
 import MainLayout from './components/layout/MainLayout.tsx';
-import Search from './components/SearchPage.tsx'
-
 import Scrolling from './components/MainPage2.tsx';
 
 export const App = () => {
@@ -18,7 +16,6 @@ export const App = () => {
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/main" element={<Scrolling />} />
-      <Route path="/search" element={<Search />} />
     </Routes>
   );
 };
