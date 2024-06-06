@@ -11,16 +11,19 @@ import Search from './components/Search.tsx';
 import { HStack, Img, Link, Stack, Text } from '@chakra-ui/react';
 import ProfilePage from './components/ProfilePage.tsx';
 
+import Scrolling from './components/MainPage2.tsx';
+
 export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<EventPage />} />
-      <Route path="/firebase-demo" element={<FirebaseDemo />} />
+      {/* <Route path="/firebase-demo" element={<FirebaseDemo />} /> */}
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/main" element={<Main />} />
       <Route path="/search" element={<Search />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/main_feed" element={<Scrolling />} />
     </Routes>
   );
 };

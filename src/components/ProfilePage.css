@@ -127,12 +127,11 @@ body, html, #root {
   }
 
 .profile-icon {
-    width: 100px; /* Встановіть бажану ширину */
-    height: 100px; /* Встановіть бажану висоту */
-    border-radius: 50%; /* Зробить іконку круглою */
-    object-fit: cover; /* Зробить так, щоб зображення заповнювало круглу рамку */
-    border: 2px solid #fff; /* Додайте рамку, якщо потрібно */
-    /* padding: 5px; */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
     margin: 7px;
   }
 
