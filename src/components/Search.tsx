@@ -127,11 +127,6 @@ function Search() {
             style={{ backgroundImage: `url(${search})`, backgroundSize: '30px 30px', backgroundPosition: '10px', backgroundRepeat: 'no-repeat', paddingLeft: '50px'}}
           />
           
-          <div className="row">
-            <img src={star} alt="Star" className="star" />
-            <img src={star} alt="Star" className="star" />
-            <img src={star} alt="Star" className="star" />
-          </div>
 
           {displayUsers && ( // Display users only if displayUsers is true
             <ul>
@@ -152,6 +147,11 @@ function Search() {
                 : !usersLoading && <li>No users found</li>}
             </ul>
           )}
+          <div className="row">
+            <img src={star} alt="Star" className="star" />
+            <img src={star} alt="Star" className="star" />
+            <img src={star} alt="Star" className="star" />
+          </div>
         </div>
       </div>
     </div>
