@@ -151,7 +151,7 @@ function SearchButton() {
   return (
     <div className="search-button">
       <a href="/search">
-        <button>Search for new friends...</button>
+        <button>Search for new followings...</button>
       </a>
     </div>
   );

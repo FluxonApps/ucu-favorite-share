@@ -172,7 +172,7 @@ function Header() {
         search
       </a> */}
       <a id="myButton" className="button" onClick={handleClick} href="/auth">
-        sign out
+        Sign Out
       </a>
       {/* <img src={profileIcon} alt="Profile" className="profile-icon" /> */}
     </header>
