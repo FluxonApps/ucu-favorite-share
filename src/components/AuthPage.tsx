@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Input, Stack, Text, useToast } from '@chakra-ui/react';
 import { getAuth } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, setDoc } from 'firebase/firestore';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import {
   useAuthState,
@@ -14,7 +14,6 @@ import { db } from '../../firebase.config.ts';
 import MainLayout from './layout/MainLayout.tsx';
 
 const auth = getAuth();
-
 const AuthPage = () => {
   const toast = useToast();
 
@@ -26,11 +25,13 @@ const AuthPage = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUserName] = useState('');
 
   const switchAuthMode = () => {
     setShowSignIn((prevState) => !prevState);
     setEmail('');
     setPassword('');
+    setUserName('');
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +40,10 @@ const AuthPage = () => {
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
   };
 
   const signIn = async () => {
@@ -59,13 +64,19 @@ const AuthPage = () => {
 
   const signUp = async () => {
     try {
+      const usernameExists = await checkIfUsernameExists(username);
+  
+      if (usernameExists) {
+        alert('Username is already taken. Please choose a different one.');
+        return;
+      }
+  
       const res = await createUserWithEmailAndPassword(email, password);
       if (!res) throw new Error();
-
-      // Save user to database.
+  
       const userDocRef = doc(db, 'users', res.user.uid);
-      await setDoc(userDocRef, { email });
-
+      await setDoc(userDocRef, { email, username, followers: [], answers: [] });
+  
       toast({ status: 'success', description: 'Successfully signed up!' });
     } catch (e) {
       console.error(e);
@@ -76,6 +87,7 @@ const AuthPage = () => {
       });
     }
   };
+  
 
   const handleAuth = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,8 +101,14 @@ const AuthPage = () => {
 
   // Check if user is already signed in. If yes, redirect to main app.
   if (user) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/main" replace />;
   }
+  const checkIfUsernameExists = async (username) => {
+    const q = query(collection(db, 'users'), where('username', '==', username));
+    const querySnapshot = await getDocs(q);
+
+    return !querySnapshot.empty;
+  };
 
   return (
     <MainLayout>
@@ -107,6 +125,11 @@ const AuthPage = () => {
               minLength={6}
               required
             />
+            {!showSignIn ? (
+              <Input placeholder="Username" onChange={handleUserNameChange} value={username} required />
+            ) : (
+              ''
+            )}
             <Button type="submit" colorScheme="blue" isDisabled={loading} isLoading={loading}>
               Submit
             </Button>

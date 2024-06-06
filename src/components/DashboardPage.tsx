@@ -1,12 +1,11 @@
 import { Box, Button, Spinner, Text } from '@chakra-ui/react';
-import { getAuth } from 'firebase/auth';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { Navigate } from 'react-router-dom';
 import { db } from '../../firebase.config';
 import { doc } from 'firebase/firestore';
 
-const auth = getAuth();
+import { auth } from '../../firebase.config';
 
 const DashboardPage = () => {
   const [user, userLoading] = useAuthState(auth);

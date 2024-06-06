@@ -85,5 +85,4 @@ export function FirebaseDemo() {
     </Flex>
   );
 }
-
 export default FirebaseDemo;
