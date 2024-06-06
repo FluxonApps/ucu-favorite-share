@@ -17,7 +17,7 @@ export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<EventPage />} />
-      <Route path="/firebase-demo" element={<FirebaseDemo />} />
+      {/* <Route path="/firebase-demo" element={<FirebaseDemo />} /> */}
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/main" element={<Main />} />

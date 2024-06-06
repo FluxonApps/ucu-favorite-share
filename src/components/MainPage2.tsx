@@ -6,6 +6,7 @@ import { collection, query, where } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../../firebase.config';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import defaultphoto from '../assets/defaultPhoto.png'
 import gudzak from '../assets/gudzak.png'
 
 const preconnectFontGoogle = document.createElement('link');
@@ -45,13 +46,13 @@ function Scrolling() {
 function Header() {
     return (
         <header className="header">
-            <img src={logo} alt="Logo" className="logo" />
+            <img src={logo} alt="Logo" className="logo1" />
             <div style={{marginLeft: 'auto'}}>
 
             <SearchButton />
             </div>
             <a href="/profile">
-                <img src={profileIcon} alt="Profile" className="profile-icon" />
+                <img src={profileIcon} alt="Profile" className="profile-icon1" />
             </a>
         </header>
     );
@@ -116,7 +117,7 @@ function FriendResponse({ nickname, question, answer, avatar }) {
     return (
         <div className="friend-response">
             <div className="friend-avatar">
-                <img src={avatar} alt={`${nickname}'s avatar`}  className="avatar-img" />
+                <img src={avatar || defaultphoto} alt={`${nickname}'s avatar`} className="avatar-img"/>
             </div>
             <div className="friend-details">
                 <div className="friend-nickname">{nickname}</div>
