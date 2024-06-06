@@ -7,10 +7,11 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { db } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Adjust the path as necessary
-import profileIcon from '../assets/defaultPhoto.png'; // Adjust the path as necessary
 import logow from '../assets/BEHONEST_w.png'; // Adjust the path as necessary
+import profileIcon from '../assets/defaultPhoto.png'; // Adjust the path as necessary
+// import Header from '../components/Header.tsx';
 
-import { getAuth } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Spinner } from '@chakra-ui/react';
 // import { getStorage } from 'firebase/storage';
@@ -58,7 +59,7 @@ const ProfilePage = () => {
     const handleFileChange = (event) => {
       const selectedFile = event.target.files[0];
       setFile(selectedFile);
-      alert("To save changes click 'Upload'")
+      alert("To save changes click 'Upload'");
     };
 
     const handleUpload = async () => {
@@ -140,16 +141,6 @@ function getValue(obj, key) {
   return obj[key];
 }
 
-function Header() {
-  return (
-    <header className="header">
-      <img src={logo} alt="Logo" className="logo" />
-      <button className="button">Profile</button>
-      {/* <img src={profileIcon} alt="Profile" className="profile-icon" /> */}
-    </header>
-  );
-}
-
 function Card({ question, answer }) {
   return (
     <div className="card">
@@ -164,6 +155,27 @@ function Footer() {
     <div className="footer">
       <img src={logow} alt="Profile" className="logo-icon" />
     </div>
+  );
+}
+
+function Header() {
+  function handleClick() {
+    signOut(auth);
+  }
+
+  return (
+    <header className="header">
+      <a href="/main">
+        <img src={logo} alt="Logo" className="logo" />
+      </a>
+      {/* <a id="myButton" className="button" href="/search">
+        search
+      </a> */}
+      <a id="myButton" className="button" onClick={handleClick} href="/auth">
+        sign out
+      </a>
+      {/* <img src={profileIcon} alt="Profile" className="profile-icon" /> */}
+    </header>
   );
 }
 
