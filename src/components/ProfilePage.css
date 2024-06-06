@@ -120,6 +120,7 @@ body, html, #root {
     /* transition: background-color 0.3s, color 0.3s, transform 0.3s; */
     width: auto;
     height: auto;
+    margin: 5px;
   }
   
   .label-file:hover {
@@ -131,7 +132,7 @@ body, html, #root {
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #fff;
+    border: 2px solid #3b3b5f;
     margin: 7px;
   }
 
@@ -224,7 +225,7 @@ body, html, #root {
     font-weight: 600;
     text-align: center;
     cursor: pointer;
-    border-width: 1.5px;
+    border-width: 2px;
     border-color: #444A6E!important;
     border-radius: 7px;
     color: #444A6E;

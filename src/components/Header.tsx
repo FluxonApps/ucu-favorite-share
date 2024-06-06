@@ -13,9 +13,6 @@ import profileIcon from '../assets/defaultPhoto.png';
 const auth = getAuth();
 
 function Header() {
-  function handleClick() {
-    signOut(auth);
-  }
 
   const [user, userLoading] = useAuthState(auth);
 
