@@ -3,7 +3,7 @@ import './main_page.css'; // Create a CSS file for custom styles
 import { CollectionReference, addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 
 import { auth, db } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Ensure the correct path to your image file
@@ -24,8 +24,17 @@ const questionsCollectionRef = collection(db, 'questions') as CollectionReferenc
 function Main() {
   const [user] = useAuthState(auth);
   const userRef = user && doc(db, `users/${user.uid}`);
+  const [redirectToMainFeed, setRedirectToMainFeed] = useState(false);
 
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
+
+  const [currentUser, currentUserLoading] = useDocumentData(userRef);
+
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  const currentDay = mm + '/' + dd + '/' + yyyy;
 
   const getRandomQuestion = () => {
     if (!questionsLoading && questions !== undefined) {
@@ -49,6 +58,10 @@ function Main() {
   }, [getRandomQuestion]);
 
   const [questions, questionsLoading] = useCollectionData(questionsCollectionRef);
+
+  if (user && currentUser && (currentDay in currentUser.answers)) {
+    return <Navigate to="/main_feed" replace />;
+  }
 
   const submitAnswer = async () => {
     const userAnswerInput = document.getElementById('user-answer') as HTMLInputElement;
@@ -88,8 +101,8 @@ function Main() {
 
       await updateDoc(userRef, { answers: updatedAnswers });
 
-      alert('Answer submitted successfully');
       userAnswerInput.value = '';
+      setRedirectToMainFeed(true);
     } catch (error) {
       console.error('Error submitting answer:', error);
       alert('An error occurred while submitting your answer. Please try again.');
@@ -114,6 +127,9 @@ function Main() {
       alert('Please enter a valid question');
     }
   };
+  if (redirectToMainFeed) {
+    return <Navigate to="/main_feed" replace />;
+  }
 
   return (
     <div className="app-container">
