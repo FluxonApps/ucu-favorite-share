@@ -43,6 +43,7 @@ export function FirebaseDemo() {
     return <Box>Error fetching users</Box>;
   }
 
+
   return (
     <Flex flexDir="column" gap="8" padding="6">
       <Flex flexDir="column" gap="6" border="1px" borderColor="gray.200" width="20%" px="6" py="8">
@@ -87,6 +88,5 @@ export function FirebaseDemo() {
     </Flex>
   );
 }
-
 export default FirebaseDemo;
 
