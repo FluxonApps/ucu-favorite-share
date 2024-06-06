@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
 
 const MainLayout: FC<any> = ({ children }) => (
-  <Box h="full" bg="radial-gradient(at left top, #050311 20%, #2A53C7 100%)">
+  <Box h="full" bg="#444A6E">
     {children}
   </Box>
 );
