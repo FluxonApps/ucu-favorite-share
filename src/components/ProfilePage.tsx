@@ -90,7 +90,7 @@ const ProfilePage = () => {
         <label htmlFor="file-input" className="label-file">
           Choose a file
         </label>
-        <button className="button" onClick={handleUpload}>
+        <button className="label-file" onClick={handleUpload}>
           Upload
         </button>
       </div>

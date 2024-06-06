@@ -1,15 +1,23 @@
 import './Search.css'; // Import and connect your CSS file for styling
 
+import { Spinner } from '@chakra-ui/react';
+import { getAuth, signOut } from 'firebase/auth';
 import { collection, query, getDoc, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 
 import { db, auth } from '../../firebase.config';
-import logo from '../assets/BEHONEST02.png'; // Ensure the correct path and file extension
+import logo from '../assets/BEHONEST02.png';
+import defaultphoto from '../assets/defaultPhoto.png';
+import gudzak from '../assets/gudzak.png';
+import profileIcon from '../assets/profile_icon.png';
 import search from '../assets/search.png';
 import star from '../assets/star.png';
-import Header from '../components/Header.tsx';
+
+// import Header from '../components/Header.tsx';
 
 const usersCollectionRef = collection(db, 'users');
 
@@ -124,9 +132,14 @@ function Search() {
             placeholder="Search users..."
             value={searchTerm}
             onChange={handleInputChange}
-            style={{ backgroundImage: `url(${search})`, backgroundSize: '30px 30px', backgroundPosition: '10px', backgroundRepeat: 'no-repeat', paddingLeft: '50px'}}
+            style={{
+              backgroundImage: `url(${search})`,
+              backgroundSize: '30px 30px',
+              backgroundPosition: '10px',
+              backgroundRepeat: 'no-repeat',
+              paddingLeft: '50px',
+            }}
           />
-          
 
           {displayUsers && ( // Display users only if displayUsers is true
             <ul>
@@ -155,6 +168,28 @@ function Search() {
         </div>
       </div>
     </div>
+  );
+}
+
+function Header() {
+  const [user, userLoading] = useAuthState(auth);
+
+  const currentUserRef = user && doc(db, `/users/${user.uid}`);
+
+  const [currentUser, currentUserLoading] = useDocumentData(currentUserRef);
+
+  return (
+    <header className="header">
+      <a href="/main">
+        <img src={logo} alt="Logo" className="logo1" />
+      </a>
+
+      {currentUser && (
+        <a href="/profile">
+          <img src={currentUser.profileImage || profileIcon} alt="Profile" className="image" />
+        </a>
+      )}
+    </header>
   );
 }
 
