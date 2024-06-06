@@ -67,6 +67,11 @@ function Main() {
       return;
     }
 
+    if (userAnswer.length >= 50) {
+      alert('Your answer has reached 50 characters!');
+      return;
+    }
+  
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -96,6 +101,11 @@ function Main() {
   const addQuestion = () => {
     const newQuestionInput = document.getElementById('new-question') as HTMLInputElement;
     const newQuestion = newQuestionInput.value.trim();
+    if (newQuestion.length >= 50) {
+      alert('Your question has reached 50 characters!');
+      return;
+    }
+
     if (newQuestion !== '') {
       addDoc(questionsCollectionRef, { question: newQuestion });
       newQuestionInput.value = '';
