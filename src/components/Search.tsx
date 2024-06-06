@@ -1,11 +1,15 @@
 import './Search.css'; // Import and connect your CSS file for styling
 
-import React, { useState, useEffect } from 'react';
-import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection, query, getDoc, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollection } from 'react-firebase-hooks/firestore';
+
 import { db, auth } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Ensure the correct path and file extension
+import search from '../assets/search.png';
+import star from '../assets/star.png';
+import Header from '../components/Header.tsx';
 
 const usersCollectionRef = collection(db, 'users');
 
@@ -30,6 +34,7 @@ function Search() {
           setCurrentUserData(userDocSnap.data());
         }
       };
+
       fetchCurrentUserData();
     }
   }, [user]);
@@ -42,11 +47,16 @@ function Search() {
   }, [currentUserData]);
 
   // Filter users based on search term, excluding current user
-  const filteredUsers = usersSnapshot && usersSnapshot.docs
-    .map(doc => ({ id: doc.id, ...doc.data() }))
-    .filter(u => 
-      u.username.toLowerCase().includes(searchTerm.toLowerCase()) && u.id !== user.uid && u.username !== (currentUserData && currentUserData.username)
-    );
+  const filteredUsers =
+    usersSnapshot &&
+    usersSnapshot.docs
+      .map((doc) => ({ id: doc.id, ...doc.data() }))
+      .filter(
+        (u) =>
+          u.username.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          u.id !== user.uid &&
+          u.username !== (currentUserData && currentUserData.username),
+      );
 
   // Function to check if a user is followed
   const isUserFollowed = (userId) => {
@@ -57,12 +67,14 @@ function Search() {
   const handleButtonClick = async (targetUserId) => {
     if (!user) {
       console.error('User not logged in');
+
       return;
     }
 
     // Check if the target user is the current user
     if (targetUserId === user.uid) {
       console.error('Cannot follow yourself');
+
       return;
     }
 
@@ -73,21 +85,21 @@ function Search() {
       const currentUserDocRef = doc(db, 'users', userId);
       if (isUserFollowed(targetUserId)) {
         await updateDoc(userDocRef, {
-          followers: arrayRemove(userId)
+          followers: arrayRemove(userId),
         });
         await updateDoc(currentUserDocRef, {
-          following: arrayRemove(targetUserId)
+          following: arrayRemove(targetUserId),
         });
-        setFollowingUsers(prevState => prevState.filter(id => id !== targetUserId));
+        setFollowingUsers((prevState) => prevState.filter((id) => id !== targetUserId));
         console.log(`User ${userId} unfollowed user ${targetUserId}`);
       } else {
         await updateDoc(userDocRef, {
-          followers: arrayUnion(userId)
+          followers: arrayUnion(userId),
         });
         await updateDoc(currentUserDocRef, {
-          following: arrayUnion(targetUserId)
+          following: arrayUnion(targetUserId),
         });
-        setFollowingUsers(prevState => [...prevState, targetUserId]);
+        setFollowingUsers((prevState) => [...prevState, targetUserId]);
         console.log(`User ${userId} followed user ${targetUserId}`);
       }
     } catch (error) {
@@ -102,38 +114,48 @@ function Search() {
   };
 
   return (
-      <div className="search-container">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search users..."
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
-        {displayUsers && ( // Display users only if displayUsers is true
-          <ul>
-            {usersLoading && <li>Loading...</li>}
-            {usersError && <li>Error loading users: {usersError.message}</li>}
-            {filteredUsers && filteredUsers.length > 0 ? (
-              filteredUsers.map((u) => (
-                <li key={u.id} className="user-item">
-                  <span>{u.username}</span>
-                  <div
-                    className={`button-container ${isUserFollowed(u.id) ? 'following' : ''}`}
-                    onClick={() => handleButtonClick(u.id)}
-                  >
-                    {isUserFollowed(u.id) ? 'Following' : 'Follow'}
-                  </div>
-                </li>
-              ))
-            ) : (
-              !usersLoading && <li>No users found</li>
-            )}
-          </ul>
-        )}
+    <div>
+      <Header />
+      <div>
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search users..."
+            value={searchTerm}
+            onChange={handleInputChange}
+            style={{ backgroundImage: `url(${search})`, backgroundSize: '30px 30px', backgroundPosition: '10px', backgroundRepeat: 'no-repeat', paddingLeft: '50px'}}
+          />
+          
+
+          {displayUsers && ( // Display users only if displayUsers is true
+            <ul>
+              {usersLoading && <li>Loading...</li>}
+              {usersError && <li>Error loading users: {usersError.message}</li>}
+              {filteredUsers && filteredUsers.length > 0
+                ? filteredUsers.map((u) => (
+                    <li key={u.id} className="user-item">
+                      <span>{u.username}</span>
+                      <div
+                        className={`button-container ${isUserFollowed(u.id) ? 'following' : ''}`}
+                        onClick={() => handleButtonClick(u.id)}
+                      >
+                        {isUserFollowed(u.id) ? 'Following' : 'Follow'}
+                      </div>
+                    </li>
+                  ))
+                : !usersLoading && <li>No users found</li>}
+            </ul>
+          )}
+          <div className="row">
+            <img src={star} alt="Star" className="star" />
+            <img src={star} alt="Star" className="star" />
+            <img src={star} alt="Star" className="star" />
+          </div>
+        </div>
       </div>
+    </div>
   );
 }
 
 export default Search;
-

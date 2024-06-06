@@ -240,3 +240,7 @@ body, html, #root {
     margin-top: 50px;
     height: 80px;
 }
+
+.button:hover {
+    background-color: hwb(45 50% 14% / 0.601);
+  }
