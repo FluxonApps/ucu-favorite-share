@@ -60,7 +60,6 @@ body, html, #root {
     align-items: center;
     background-color: #3b3b5f; /* Adjust background color to match your design */
     min-height: 800px;
-    height: auto;
 }
 
 .header {
@@ -80,8 +79,6 @@ body, html, #root {
 
 .logo-icon {
     height: 60px;
-    margin-left: 40px;
-    margin-top: 18px;
     text-align: center;
 }
 

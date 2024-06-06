@@ -3,12 +3,11 @@ import './main_page.css'; // Create a CSS file for custom styles
 import { CollectionReference, addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Link, Navigate } from 'react-router-dom';
 import { Spinner } from '@chakra-ui/react';
 import { getAuth, signOut } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { useCollection, useDocumentData } from 'react-firebase-hooks/firestore';
+import { useCollection, useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { auth, db } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Ensure the correct path to your image file
@@ -30,6 +29,16 @@ function Main() {
   const userRef = user && doc(db, `users/${user.uid}`);
 
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
+
+  const [currentUser, currentUserLoading] = useDocumentData(userRef);
+
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  const currentDay = mm + '/' + dd + '/' + yyyy;
+
+  const redirectToMainFeed = Boolean(currentUser?.answers[currentDay]);
 
   const getRandomQuestion = () => {
     if (!questionsLoading && questions !== undefined) {
@@ -53,6 +62,10 @@ function Main() {
   }, [getRandomQuestion]);
 
   const [questions, questionsLoading] = useCollectionData(questionsCollectionRef);
+
+  if (user && currentUser && (currentDay in currentUser.answers)) {
+    return <Navigate to="/main_feed" replace />;
+  }
 
   const submitAnswer = async () => {
     const userAnswerInput = document.getElementById('user-answer') as HTMLInputElement;
@@ -93,7 +106,6 @@ function Main() {
 
       await updateDoc(userRef, { answers: updatedAnswers });
 
-      alert('Answer submitted successfully');
       userAnswerInput.value = '';
     } catch (error) {
       console.error('Error submitting answer:', error);
@@ -118,6 +130,9 @@ function Main() {
       alert('Please enter a valid question');
     }
   };
+  if (redirectToMainFeed) {
+    return <Navigate to="/main_feed" replace />;
+  }
 
   return (
     <div className="app-container">
