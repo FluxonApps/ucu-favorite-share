@@ -51,7 +51,7 @@ const EventPage = () => {
   return (
     <MainLayout>
       <Stack spacing={4} justifyContent="center" alignItems="center" h="full">
-        <Img h={505} src={logoWhite} />
+        <Img maxH={505} maxWidth="100%" src={logoWhite} />
         <Text color="white" fontSize="xl" mt={2}>
           Be honest with your preferences
         </Text>
