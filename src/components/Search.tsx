@@ -8,7 +8,7 @@ import { useCollection, useCollectionData, useDocumentData } from 'react-firebas
 import { db, auth } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Ensure the correct path and file extension
 import photox from '../assets/defaultPhoto.png';
-import profileIcon from '../assets/profile_icon.png';
+import profileIcon from '../assets/defaultPhoto.png';
 import search from '../assets/search.png';
 import star from '../assets/star.png';
 
