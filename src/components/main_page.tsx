@@ -57,7 +57,7 @@ function Main() {
 
     const interval = setInterval(() => {
       getRandomQuestion();
-    }, 100000);
+    }, 1000000000);
 
     return () => clearInterval(interval);
   }, [getRandomQuestion]);
