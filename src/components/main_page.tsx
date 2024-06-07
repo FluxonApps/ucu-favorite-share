@@ -3,11 +3,14 @@ import './main_page.css'; // Create a CSS file for custom styles
 import { CollectionReference, addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
+import { Link, Navigate } from 'react-router-dom';
+import { Spinner } from '@chakra-ui/react';
+import { getAuth, signOut } from 'firebase/auth';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useCollection, useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { auth, db } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Ensure the correct path to your image file
-import { Link, Navigate } from 'react-router-dom';
 
 interface Question {
   question: string;
@@ -83,9 +86,10 @@ function Main() {
 
     if (userAnswer.length >= 50) {
       alert('Your answer has reached 50 characters!');
+
       return;
     }
-  
+
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -109,13 +113,12 @@ function Main() {
     }
   };
 
-
-
   const addQuestion = () => {
     const newQuestionInput = document.getElementById('new-question') as HTMLInputElement;
     const newQuestion = newQuestionInput.value.trim();
     if (newQuestion.length >= 50) {
       alert('Your question has reached 50 characters!');
+
       return;
     }
 
@@ -133,19 +136,8 @@ function Main() {
 
   return (
     <div className="app-container">
-      <header>
-        <img src={logo} alt="BEHONEST Logo" className="app-logo" />
-        <div className="search-bar-container">
-          {/* <input className="search-bar" type="text" placeholder="Search your friends" /> */}
-          <div className="search-button">
-          {/* Використовуємо Link замість a */}
-          <Link to="/search">
-            <button>Search for new friends...</button>
-          </Link>
-        </div>
-          {/* <span className="search-icon">&#128269;</span> Unicode character for magnifying glass */}
-        </div>
-      </header>
+      <Header />
+
       <main>
         {/* Question Section in a Separate Container */}
         <section className="question-section">
@@ -157,16 +149,54 @@ function Main() {
         {/* Answer Section in a Separate Container */}
         <section className="answer-section">
           <textarea id="user-answer" placeholder="Write your answer here..." className="answer-input" />
-          <button onClick={submitAnswer} className="submit-button">Post</button>
+          <button onClick={submitAnswer} className="submit-button">
+            Post
+          </button>
         </section>
       </main>
       <main>
         {/* Add Question Section (remains the same) */}
         <section className="add-question-section">
           <input type="text" id="new-question" placeholder="Enter a new question" className="new-question-input" />
-          <button onClick={addQuestion} className="add-question-button">Add Question</button>
+          <button onClick={addQuestion} className="add-question-button">
+            Add Question
+          </button>
         </section>
       </main>
+    </div>
+  );
+}
+
+function Header() {
+  const [user, userLoading] = useAuthState(auth);
+
+  const currentUserRef = user && doc(db, `/users/${user.uid}`);
+
+  const [currentUser, currentUserLoading] = useDocumentData(currentUserRef);
+
+  return (
+    <header className="header">
+      <a href="/main">
+        <img src={logo} alt="Logo" className="logo1" />
+      </a>
+      <div style={{ marginLeft: 'auto' }}>
+        <SearchButton />
+      </div>
+      {currentUser && (
+        <a href="/profile">
+          <img src={currentUser.profileImage || profileIcon} alt="Profile" className="image" />
+        </a>
+      )}
+    </header>
+  );
+}
+
+function SearchButton() {
+  return (
+    <div className="search-button">
+      <a href="/search">
+        <button>Search for new friends...</button>
+      </a>
     </div>
   );
 }
