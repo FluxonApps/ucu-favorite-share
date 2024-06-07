@@ -19,3 +19,11 @@ body,
 html {
   background-color: #2c2b4a;
 }
+
+.image {
+  height: 50px;
+  width: 50px;
+  margin: 10px;
+  border: 2.5px solid #444a6e;
+  border-radius: 100px;
+}

@@ -125,8 +125,10 @@ body, html, #root {
   }
 
 .profile-icon {
+    flex: 0 0 100px;
     width: 100px;
     height: 100px;
+    max-width: 100%;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #3b3b5f;

@@ -18,13 +18,6 @@ body {
   background-color: #FCF4E4; /* Adjust header background color */
 }
 
-.image {
-  height: 50px;
-  margin: 10px;
-  border: 2.5px solid #444A6E;
-  border-radius: 100px;
-  width: auto;
-}
 /* App logo styling */
 .app-logo {
   height: 70px; /* Adjusted to a fixed height instead of using 'cap' */
