@@ -11,7 +11,7 @@ import { useCollection, useDocumentData, useCollectionData } from 'react-firebas
 
 import { auth, db } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Ensure the correct path to your image file
-import profileIcon from '../assets/defaultPhoto.png'
+import profileIcon from '../assets/profile_icon.png'
 
 interface Question {
   question: string;
