@@ -11,6 +11,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body, #root {
+body,
+#root {
   height: 100vh;
+}
+
+html {
+  background-color: #2c2b4a;
 }
