@@ -13,7 +13,6 @@ import { db, auth } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png';
 import defaultphoto from '../assets/defaultPhoto.png';
 import gudzak from '../assets/gudzak.png';
-import profileIcon from '../assets/profile_icon.png';
 import search from '../assets/search.png';
 import star from '../assets/star.png';
 
@@ -186,7 +185,7 @@ function Header() {
 
       {currentUser && (
         <a href="/profile">
-          <img src={currentUser.profileImage || profileIcon} alt="Profile" className="image" />
+          <img src={currentUser.profileImage || defaultphoto} alt="Profile" className="image" />
         </a>
       )}
     </header>
