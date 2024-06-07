@@ -11,8 +11,8 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 
 import { db, auth } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png';
-import defaultphoto from '../assets/defaultPhoto.png';
-import gudzak from '../assets/gudzak.png';
+// import defaultphoto from '../assets/defaultPhoto.png';
+// import gudzak from '../assets/gudzak.png';
 import profileIcon from '../assets/profile_icon.png';
 import search from '../assets/search.png';
 import star from '../assets/star.png';
