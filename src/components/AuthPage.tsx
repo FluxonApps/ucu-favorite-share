@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, Stack, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Stack, Text, background, useToast } from '@chakra-ui/react';
 import { getAuth } from 'firebase/auth';
 import { collection, query, where, getDocs, doc, setDoc } from 'firebase/firestore';
 import { ChangeEvent, FormEvent, useState } from 'react';
@@ -12,6 +12,24 @@ import { Navigate } from 'react-router-dom';
 import { db } from '../../firebase.config.ts';
 
 import MainLayout from './layout/MainLayout.tsx';
+
+const preconnectFontGoogle = document.createElement('link');
+preconnectFontGoogle.rel = 'preconnect';
+preconnectFontGoogle.href = 'https://fonts.googleapis.com';
+
+const preconnectFontGstatic = document.createElement('link');
+preconnectFontGstatic.rel = 'preconnect';
+preconnectFontGstatic.href = 'https://fonts.gstatic.com';
+preconnectFontGstatic.setAttribute('crossorigin', '');
+
+const fontStyleSheet = document.createElement('link');
+fontStyleSheet.href =
+  'https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap';
+fontStyleSheet.rel = 'stylesheet';
+
+document.head.appendChild(preconnectFontGoogle);
+document.head.appendChild(preconnectFontGstatic);
+document.head.appendChild(fontStyleSheet);
 
 const auth = getAuth();
 const AuthPage = () => {
@@ -65,18 +83,18 @@ const AuthPage = () => {
   const signUp = async () => {
     try {
       const usernameExists = await checkIfUsernameExists(username);
-  
+
       if (usernameExists) {
         alert('Username is already taken. Please choose a different one.');
         return;
       }
-  
+
       const res = await createUserWithEmailAndPassword(email, password);
       if (!res) throw new Error();
-  
+
       const userDocRef = doc(db, 'users', res.user.uid);
       await setDoc(userDocRef, { email, username, followers: [], answers: {} });
-  
+
       toast({ status: 'success', description: 'Successfully signed up!' });
     } catch (e) {
       console.error(e);
@@ -87,7 +105,6 @@ const AuthPage = () => {
       });
     }
   };
-  
 
   const handleAuth = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,6 +120,7 @@ const AuthPage = () => {
   if (user) {
     return <Navigate to="/main" replace />;
   }
+
   const checkIfUsernameExists = async (username) => {
     const q = query(collection(db, 'users'), where('username', '==', username));
     const querySnapshot = await getDocs(q);
@@ -112,11 +130,20 @@ const AuthPage = () => {
 
   return (
     <MainLayout>
-      <Flex w="full" h="full" alignItems="center" justifyContent="space-between">
-        <Box mx="auto" as="form" onSubmit={handleAuth}>
-          <Stack spacing={4} w={500} bg="white" rounded="md" p={8}>
-            <Text fontSize="2xl">{showSignIn ? 'Sign in' : 'Sign up'}</Text>
-            <Input placeholder="Email" type="email" onChange={handleEmailChange} value={email} required />
+      <Flex w="full" h="full" alignItems="center" justifyContent="center">
+        <Box 
+          mx="auto" 
+          as="form" 
+          onSubmit={handleAuth}
+          w={{ base: "90%", sm: "400px", md: "500px" }}
+          p={{ base: 4, sm: 6, md: 8 }}
+          bg="white" 
+          rounded="md"
+          style={{backgroundColor: '#e7e3d4'}}
+        >
+          <Stack spacing={4}>
+            <Text fontSize="2xl" textAlign="center" style={{fontFamily: "Josefin Sans"}}>{showSignIn ? 'Sign in' : 'Sign up'}</Text>
+            <Input placeholder="Email" type="email" onChange={handleEmailChange} value={email} required style={{borderColor: '#3b3b5f'}}/>
             <Input
               placeholder="Password"
               type="password"
@@ -124,13 +151,12 @@ const AuthPage = () => {
               value={password}
               minLength={6}
               required
+              style={{borderColor: '#3b3b5f'}}
             />
             {!showSignIn ? (
-              <Input placeholder="Username" onChange={handleUserNameChange} value={username} required />
-            ) : (
-              ''
-            )}
-            <Button type="submit" colorScheme="blue" isDisabled={loading} isLoading={loading}>
+              <Input placeholder="Username" onChange={handleUserNameChange} value={username} required style={{borderColor: '#3b3b5f'}}/>
+            ) : null}
+            <Button type="submit" isDisabled={loading} isLoading={loading} style={{backgroundColor: '#3b3b5f', color: '#e7e3d4'}}>
               Submit
             </Button>
             <Button
@@ -140,6 +166,7 @@ const AuthPage = () => {
               variant="link"
               onClick={switchAuthMode}
               isDisabled={loading}
+              textAlign="center"
             >
               {showSignIn ? 'Create a new account?' : 'Already have an account?'}
             </Button>

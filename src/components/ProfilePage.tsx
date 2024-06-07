@@ -90,7 +90,7 @@ const ProfilePage = () => {
         <label htmlFor="file-input" className="label-file">
           Choose a file
         </label>
-        <button className="button" onClick={handleUpload}>
+        <button className="label-file" onClick={handleUpload}>
           Upload
         </button>
       </div>
@@ -172,7 +172,7 @@ function Header() {
         search
       </a> */}
       <a id="myButton" className="button" onClick={handleClick} href="/auth">
-        sign out
+        Sign Out
       </a>
       {/* <img src={profileIcon} alt="Profile" className="profile-icon" /> */}
     </header>

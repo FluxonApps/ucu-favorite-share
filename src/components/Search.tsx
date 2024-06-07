@@ -3,14 +3,14 @@ import './Search.css'; // Import and connect your CSS file for styling
 import { collection, query, getDoc, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 
 import { db, auth } from '../../firebase.config';
 import logo from '../assets/BEHONEST02.png'; // Ensure the correct path and file extension
 import photox from '../assets/defaultPhoto.png';
+import profileIcon from '../assets/profile_icon.png';
 import search from '../assets/search.png';
 import star from '../assets/star.png';
-import Header from '../components/Header.tsx';
 
 const usersCollectionRef = collection(db, 'users');
 
@@ -23,7 +23,6 @@ function Search() {
 
   const users = usersSnapshot?.docs.map((snap) => ({ id: snap.id, ...snap.data() }) as any);
 
-  // TODO:
   const filteredUsers =
     users &&
     users.filter(
@@ -78,20 +77,26 @@ function Search() {
             }}
           />
 
-          {users === undefined && <p>Loading...</p>}
+          {users === undefined && <p className='text'>Loading...</p>}
           {filteredUsers &&
-            filteredUsers.map((user) => (
-              <div key={user.id} className="user-item">
-                <img src={user.profileImage || photox} alt="Profile" className="profile-icon" />
-                <span>{user.username}</span>
-                <div
-                  className={`button-container ${isUserFollowed(user) ? 'following' : ''}`}
-                  onClick={() => handleButtonClick(user)}
-                >
-                  {isUserFollowed(user) ? 'Following' : 'Follow'}
-                </div>
-              </div>
-            ))}
+            filteredUsers.map((user) => {
+              if (searchTerm.length === 0){
+                return null
+              }
+                return (
+                  <div key={user.id} className="user-item">
+                    <img src={user.profileImage || photox} alt="Profile" className="profile-icon" />
+                    <span>{user.username}</span>
+                    <div
+                      className={`button-container ${isUserFollowed(user) ? 'following' : ''}`}
+                      onClick={() => handleButtonClick(user)}
+                    >
+                      {isUserFollowed(user) ? 'Following' : 'Follow'}
+                    </div>
+                  </div>
+                );
+            })}
+          {users !== undefined && filteredUsers !== undefined && filteredUsers.length === 0 && <p className='text'>No users found...</p>}
 
           <div className="row">
             <img src={star} alt="Star" className="star" />
@@ -104,6 +109,26 @@ function Search() {
   );
 }
 
+function Header() {
+  const [user, userLoading] = useAuthState(auth);
+
+  const currentUserRef = user && doc(db, `/users/${user.uid}`);
+
+  const [currentUser, currentUserLoading] = useDocumentData(currentUserRef);
+
+  return (
+    <header className="header">
+      <a href="/main">
+        <img src={logo} alt="Logo" className="logo1" />
+      </a>
+
+      {currentUser && (
+        <a href="/profile">
+          <img src={currentUser.profileImage || profileIcon} alt="Profile" className="image" />
+        </a>
+      )}
+    </header>
+  );
+}
+
 export default Search;
-
-

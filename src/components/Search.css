@@ -6,31 +6,36 @@ body {
   background-color: #2c2b4a;
 }
 
-/* Header styling */
-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 20px;
-  background-color: #e7e3d4;
+  height:10%;
+  padding: 20px;
+  background-color: #FCF4E4; /* Adjust header background color */
 }
 
 /* App logo styling */
 .app-logo {
   height: 70px; /* Adjusted to a fixed height instead of using 'cap' */
 }
+.text {
+  color: #e7e3d4;
+}
 
+/* Container for the entire search component */
 /* Container for the entire search component */
 .search-container {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center items horizontally */
-  justify-content: center; /* Center items vertically */
+  justify-content: flex-start; /* Start items from the top */
   min-height: 100vh;
   height: 100%; /* Full viewport height */
   background-color: #2c2b4a;
   padding: 20px;
+  padding-top: 50px; /* Adjust top padding to control initial height */
 }
 
 /* Search input styling */
@@ -42,8 +47,8 @@ header {
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   background-color: #e7e3d4;
-  margin-top: 100px;
 }
+
 
 /* List item for each user */
 .user-item {
@@ -94,10 +99,10 @@ header {
 
 
 .star {
-  height: 100px;
-  margin: 50px;
+  height: 50px; /* Adjust height for responsiveness */
+  margin: 20px; /* Adjust margin for responsiveness */
   display: flex;
-  align-items: self-start;
+  align-items: center;
 }
 
 .row {

@@ -1,15 +1,14 @@
-.profile-header {
+.header {
     background-color: #FCF4E4; /* Blue background color */
     padding: 30px;             /* Padding around the text */
     text-align: center;        /* Center-align text */
     font-size: 2em;            /* Larger font size */
     font-weight: bold;         /* Bold text */
     border-radius: 5px;     
-
+    height: 10px;
   }
 
 .button{
-
     background-color: #F2EEEE;
     font-size: 18px;
     font-weight: 600;
