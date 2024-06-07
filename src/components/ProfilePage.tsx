@@ -97,12 +97,16 @@ const ProfilePage = () => {
     );
   }
 
-  if (userLoading && currentUserLoading) {
-    return <Spinner />;
-  }
-
   if (!currentUser) {
-    return 'No user!';
+    return (
+      <div className="app josefin-sans">
+        <Header />
+        <div className='center'>
+          <Spinner />
+        </div>
+        <Footer />
+      </div>
+    );
   }
 
   return (
