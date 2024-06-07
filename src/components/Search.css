@@ -29,6 +29,9 @@ body {
 .app-logo {
   height: 70px; /* Adjusted to a fixed height instead of using 'cap' */
 }
+.text {
+  color: #e7e3d4;
+}
 
 /* Container for the entire search component */
 /* Container for the entire search component */
@@ -61,12 +64,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 300px; /* Adjusted width for consistency */
+  width: 100%;
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #fff; /* White background for better readability */
+  background-color: #e7e3d4; /* White background for better readability */
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+@media (min-width: 768px) {
+  .user-item {
+    max-width: 40%; /* Змінюємо максимальну ширину на 40% для екранів ноутбуків і більших */
+  }
 }
 
 /* Button container styling */
