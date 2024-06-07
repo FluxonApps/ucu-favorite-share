@@ -1,5 +1,4 @@
 import logo from '../assets/BEHONEST02.png';
-import profileIcon from '../assets/profile_icon.png';
 
 import './MainPage2.css';
 import { Spinner } from '@chakra-ui/react';
@@ -93,7 +92,7 @@ function Header() {
       </div>
       {currentUser && (
         <a href="/profile">
-          <img src={currentUser.profileImage || profileIcon} alt="Profile" className="image" />
+          <img src={currentUser.profileImage || defaultphoto} alt="Profile" className="image" />
         </a>
       )}
     </header>
