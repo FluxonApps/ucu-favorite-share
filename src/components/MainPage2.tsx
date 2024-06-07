@@ -12,6 +12,8 @@ import { useCollection, useDocumentData } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../../firebase.config';
 import defaultphoto from '../assets/defaultPhoto.png';
 import gudzak from '../assets/gudzak.png';
+import logow from '../assets/BEHONEST_w.png'; // Adjust the path as necessary
+
 
 const preconnectFontGoogle = document.createElement('link');
 preconnectFontGoogle.rel = 'preconnect';
@@ -45,6 +47,7 @@ function Scrolling() {
     <div className="app josefin-sans">
       <Header />
       <MainContent users={users} loading={usersLoading} error={usersError} />
+      <Footer />
     </div>
   );
 }
@@ -172,6 +175,14 @@ function FriendResponse({ nickname, question, answer, avatar }) {
           <strong></strong> {answer}
         </div>
       </div>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="footer">
+      <img src={logow} alt="Profile" className="logo-icon" />
     </div>
   );
 }
